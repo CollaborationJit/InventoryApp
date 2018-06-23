@@ -46,7 +46,7 @@ namespace InventoryHelper
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseMvc();
 
             app.Run(async (context) =>

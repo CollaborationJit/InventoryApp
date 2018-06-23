@@ -38,7 +38,7 @@ namespace InventoryHelper.Controllers
             }
 
             Guid guid = new Guid(id);
-            var inventoryItem = await _context.Items.SingleOrDefaultAsync(m => m.Guid == guid);
+            InventoryItem inventoryItem = await _context.Items.SingleOrDefaultAsync(m => m.Guid == guid);
 
             if (inventoryItem == null)
             {

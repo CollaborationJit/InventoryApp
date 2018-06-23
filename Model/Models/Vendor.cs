@@ -11,6 +11,6 @@ namespace Model.Models
         [Key]
         [ForeignKey("Vendor")]
         public string Name { get; set; }
-        public Contact Contact { get; set; }
+        public virtual Contact Contact { get; set; }
     }
 }

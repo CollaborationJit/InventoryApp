@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Model.Models
@@ -28,10 +29,11 @@ namespace Model.Models
         //vendor ID can be serial number or bar code number
         public string SerialNo { get; set; }
 
-        public Vendor Vendor { get; set; }
+        public virtual Vendor Vendor { get; set; }
 
         public int Quantity { get; set; }
 
         public int QuantityAvailable { get; set; }
+
     }
 }
