@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Model;
 using Model.Models;
+using Library.Models;
 
 namespace InventoryHelper.Controllers
 {
@@ -30,7 +31,7 @@ namespace InventoryHelper.Controllers
 
         // GET: api/Contacts/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetContact([FromRoute] string id)
+        public async Task<ActionResult> GetContact([FromRoute] string id)
         {
             if (!ModelState.IsValid)
             {
@@ -49,17 +50,20 @@ namespace InventoryHelper.Controllers
 
         // PUT: api/Contacts/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutContact([FromRoute] string id, [FromBody] Contact contact)
+        public async Task<ActionResult> PutContact([FromBody] string email, [FromBody] ContactInModel contactModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != contact.Email)
+            Contact contact = new Contact
             {
-                return BadRequest();
-            }
+                Email = contactModel.Email,
+                FirstName = contactModel.FirstName,
+                LastName = contactModel.LastName,
+                PhoneNumber = contactModel.PhoneNumber
+            };
 
             _context.Entry(contact).State = EntityState.Modified;
 
@@ -69,7 +73,7 @@ namespace InventoryHelper.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ContactExists(id))
+                if (!ContactExists(email))
                 {
                     return NotFound();
                 }
@@ -84,29 +88,40 @@ namespace InventoryHelper.Controllers
 
         // POST: api/Contacts
         [HttpPost]
-        public async Task<IActionResult> PostContact([FromBody] Contact contact)
+        public async Task<ActionResult<ContactOutModel>> PostContact([FromBody] ContactInModel contact)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Contacts.Add(contact);
+            Contact postVal = new Contact
+            {
+                PhoneNumber = contact.PhoneNumber,
+                FirstName = contact.FirstName,
+                LastName = contact.LastName,
+                Email = contact.Email
+            };
+
+            _context.Contacts.Add(postVal);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetContact", new { id = contact.Email }, contact);
+            ContactOutModel outputContact = new ContactOutModel(postVal);
+
+            return CreatedAtAction("GetContact", new { id = contact.Email }, outputContact);
         }
 
         // DELETE: api/Contacts/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteContact([FromRoute] string id)
+        public async Task<ActionResult> DeleteContact([FromBody] string email)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var contact = await _context.Contacts.SingleOrDefaultAsync(m => m.Email == id);
+            Contact contact = await _context.Contacts.SingleOrDefaultAsync(m => m.Email == email);
+
             if (contact == null)
             {
                 return NotFound();

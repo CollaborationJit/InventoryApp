@@ -16,7 +16,8 @@ namespace Model.Models
             ACCESSORIES,
             VEHICLE,
             PHONE,
-            TABLET
+            TABLET,
+            INVALID
         }
 
         [Key]
@@ -34,6 +35,19 @@ namespace Model.Models
         public int Quantity { get; set; }
 
         public int QuantityAvailable { get; set; }
+
+        public static ItemType GetItemType(string strType)
+        {
+            try
+            {
+                string upperCase = strType.ToUpper();
+                ItemType parsedType = (ItemType)Enum.Parse(typeof(ItemType), upperCase);
+                return parsedType;
+            }catch
+            {
+                return ItemType.INVALID;
+            }
+        }
 
     }
 }

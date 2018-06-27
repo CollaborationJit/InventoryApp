@@ -12,3 +12,17 @@ C:\Users\harji\Documents\Github\InventoryHelper\InventoryHelper\InventoryHelper\
 C:\Users\harji\Documents\Github\InventoryHelper\InventoryHelper\InventoryHelper\obj\Debug\netcoreapp2.0\InventoryHelper.csproj.CopyComplete
 C:\Users\harji\Documents\Github\InventoryHelper\InventoryHelper\InventoryHelper\obj\Debug\netcoreapp2.0\InventoryHelper.dll
 C:\Users\harji\Documents\Github\InventoryHelper\InventoryHelper\InventoryHelper\obj\Debug\netcoreapp2.0\InventoryHelper.pdb
+C:\Users\harji\Documents\Github\InventoryApp\InventoryHelper\bin\Debug\netcoreapp2.0\InventoryHelper.deps.json
+C:\Users\harji\Documents\Github\InventoryApp\InventoryHelper\bin\Debug\netcoreapp2.0\InventoryHelper.runtimeconfig.json
+C:\Users\harji\Documents\Github\InventoryApp\InventoryHelper\bin\Debug\netcoreapp2.0\InventoryHelper.runtimeconfig.dev.json
+C:\Users\harji\Documents\Github\InventoryApp\InventoryHelper\bin\Debug\netcoreapp2.0\InventoryHelper.dll
+C:\Users\harji\Documents\Github\InventoryApp\InventoryHelper\bin\Debug\netcoreapp2.0\InventoryHelper.pdb
+C:\Users\harji\Documents\Github\InventoryApp\InventoryHelper\bin\Debug\netcoreapp2.0\Model.dll
+C:\Users\harji\Documents\Github\InventoryApp\InventoryHelper\bin\Debug\netcoreapp2.0\Model.pdb
+C:\Users\harji\Documents\Github\InventoryApp\InventoryHelper\obj\Debug\netcoreapp2.0\InventoryHelper.csprojAssemblyReference.cache
+C:\Users\harji\Documents\Github\InventoryApp\InventoryHelper\obj\Debug\netcoreapp2.0\InventoryHelper.csproj.CoreCompileInputs.cache
+C:\Users\harji\Documents\Github\InventoryApp\InventoryHelper\obj\Debug\netcoreapp2.0\InventoryHelper.AssemblyInfoInputs.cache
+C:\Users\harji\Documents\Github\InventoryApp\InventoryHelper\obj\Debug\netcoreapp2.0\InventoryHelper.AssemblyInfo.cs
+C:\Users\harji\Documents\Github\InventoryApp\InventoryHelper\obj\Debug\netcoreapp2.0\InventoryHelper.csproj.CopyComplete
+C:\Users\harji\Documents\Github\InventoryApp\InventoryHelper\obj\Debug\netcoreapp2.0\InventoryHelper.dll
+C:\Users\harji\Documents\Github\InventoryApp\InventoryHelper\obj\Debug\netcoreapp2.0\InventoryHelper.pdb

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryHelper", "Inventor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{CECBE1E8-2F88-414A-8BEE-6B13EEDEC51C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.csproj", "{A30496FC-746E-4F07-91EC-6D27FC86246B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CECBE1E8-2F88-414A-8BEE-6B13EEDEC51C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CECBE1E8-2F88-414A-8BEE-6B13EEDEC51C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CECBE1E8-2F88-414A-8BEE-6B13EEDEC51C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A30496FC-746E-4F07-91EC-6D27FC86246B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A30496FC-746E-4F07-91EC-6D27FC86246B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A30496FC-746E-4F07-91EC-6D27FC86246B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A30496FC-746E-4F07-91EC-6D27FC86246B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,9 @@
+C:\Users\harji\Documents\Github\InventoryApp\Library\bin\Debug\netcoreapp2.0\Library.deps.json
+C:\Users\harji\Documents\Github\InventoryApp\Library\bin\Debug\netcoreapp2.0\Library.dll
+C:\Users\harji\Documents\Github\InventoryApp\Library\bin\Debug\netcoreapp2.0\Library.pdb
+C:\Users\harji\Documents\Github\InventoryApp\Library\obj\Debug\netcoreapp2.0\Library.csprojAssemblyReference.cache
+C:\Users\harji\Documents\Github\InventoryApp\Library\obj\Debug\netcoreapp2.0\Library.csproj.CoreCompileInputs.cache
+C:\Users\harji\Documents\Github\InventoryApp\Library\obj\Debug\netcoreapp2.0\Library.AssemblyInfoInputs.cache
+C:\Users\harji\Documents\Github\InventoryApp\Library\obj\Debug\netcoreapp2.0\Library.AssemblyInfo.cs
+C:\Users\harji\Documents\Github\InventoryApp\Library\obj\Debug\netcoreapp2.0\Library.dll
+C:\Users\harji\Documents\Github\InventoryApp\Library\obj\Debug\netcoreapp2.0\Library.pdb

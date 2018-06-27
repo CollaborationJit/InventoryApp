@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Library.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,12 +26,13 @@ namespace InventoryHelper.Controllers
         [HttpGet]
         public IEnumerable<Vendor> GetVendors()
         {
-            return _context.Vendors;
+            return _context.Vendors
+                .Include(s => s.Contact);
         }
 
         // GET: api/Vendors/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetVendor([FromRoute] string id)
+        public async Task<ActionResult> GetVendor([FromRoute] string id)
         {
             if (!ModelState.IsValid)
             {
@@ -49,17 +51,25 @@ namespace InventoryHelper.Controllers
 
         // PUT: api/Vendors/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutVendor([FromRoute] string id, [FromBody] Vendor vendor)
+        public async Task<ActionResult> PutVendor([FromRoute] string id, [FromBody] VendorInModel vendorInModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != vendor.Name)
+            if (id != vendorInModel.Name)
             {
                 return BadRequest();
             }
+
+            Contact contact = await _context.Contacts.FirstOrDefaultAsync(m => m.Email == vendorInModel.ContactEmail);
+
+            Vendor vendor = new Vendor
+            {
+                Contact = contact,
+                Name = vendorInModel.Name
+            };
 
             _context.Entry(vendor).State = EntityState.Modified;
 
@@ -84,12 +94,19 @@ namespace InventoryHelper.Controllers
 
         // POST: api/Vendors
         [HttpPost]
-        public async Task<IActionResult> PostVendor([FromBody] Vendor vendor)
+        public async Task<ActionResult> PostVendor([FromBody] VendorInModel vendorModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            Contact contact = await _context.Contacts.SingleOrDefaultAsync(m => m.Email == vendorModel.ContactEmail);
+            Vendor vendor = new Vendor
+            {
+                Contact = contact,
+                Name = vendorModel.Name
+            };
 
             _context.Vendors.Add(vendor);
             await _context.SaveChangesAsync();
@@ -99,7 +116,7 @@ namespace InventoryHelper.Controllers
 
         // DELETE: api/Vendors/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVendor([FromRoute] string id)
+        public async Task<ActionResult> DeleteVendor([FromBody] string id)
         {
             if (!ModelState.IsValid)
             {

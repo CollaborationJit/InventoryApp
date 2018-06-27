@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Model.Models;
 using Model;
+using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore;
 
 namespace InventoryHelper
 {
@@ -24,19 +27,16 @@ namespace InventoryHelper
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            using (var context = new ApplicationDbContext())
+            services.AddDbContext<ApplicationDbContext>(options =>
+           options
+           .UseLazyLoadingProxies()
+           .UseSqlServer("Server=tcp:inventoryhelper.database.windows.net,1433;Initial Catalog=InventoryHelper;Persist Security Info=False;User ID=inventoryadmin;Password=Huurb101!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
+            services.AddMvc()
+            .AddJsonOptions(options =>
             {
-                context.Database.EnsureCreated();
-
-                //checks if we need to load test data
-                if (context.Contacts.Count() == 0)
-                {
-                    InitTestData(context);
-                }
-
-                services.AddDbContext<ApplicationDbContext>();
-            }
-            services.AddMvc();
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +46,7 @@ namespace InventoryHelper
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseMvc();
 
             app.Run(async (context) =>

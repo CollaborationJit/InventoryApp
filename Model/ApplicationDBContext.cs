@@ -13,16 +13,16 @@ namespace Model
 
         #endregion
 
-        public ApplicationDbContext()
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server=tcp:inventoryhelper.database.windows.net,1433;Initial Catalog=InventoryHelper;Persist Security Info=False;User ID=inventoryadmin;Password=Huurb101!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+           // optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server=tcp:inventoryhelper.database.windows.net,1433;Initial Catalog=InventoryHelper;Persist Security Info=False;User ID=inventoryadmin;Password=Huurb101!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

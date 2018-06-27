@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Library.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,12 +26,14 @@ namespace InventoryHelper.Controllers
         [HttpGet]
         public IEnumerable<InventoryItem> GetItems()
         {
-            return _context.Items;
+            return _context.Items
+                .Include(s => s.Vendor)
+                .Include(s => s.Vendor.Contact);
         }
 
         // GET: api/InventoryItems/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetInventoryItem([FromRoute] string id)
+        public async Task<ActionResult> GetInventoryItem([FromRoute] string id)
         {
             if (!ModelState.IsValid)
             {
@@ -38,7 +41,10 @@ namespace InventoryHelper.Controllers
             }
 
             Guid guid = new Guid(id);
-            InventoryItem inventoryItem = await _context.Items.SingleOrDefaultAsync(m => m.Guid == guid);
+            InventoryItem inventoryItem = await _context.Items
+                .Where(s => s.Guid == guid)
+                .Include(s => s.Vendor)
+                .SingleOrDefaultAsync();
 
             if (inventoryItem == null)
             {
@@ -50,12 +56,24 @@ namespace InventoryHelper.Controllers
 
         // PUT: api/InventoryItems/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutInventoryItem([FromRoute] Guid id, [FromBody] InventoryItem inventoryItem)
+        public async Task<ActionResult> PutInventoryItem([FromBody] Guid id, [FromBody] InventoryInModel inventoryModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            Vendor vendor = await _context.Vendors.SingleOrDefaultAsync(s => s.Name == inventoryModel.VendorName);
+
+            InventoryItem inventoryItem = new InventoryItem
+            {
+                Guid = new Guid(inventoryModel.Guid),
+                SerialNo = inventoryModel.SerialNo,
+                Quantity = inventoryModel.Quantity,
+                QuantityAvailable = inventoryModel.QuantityAvailable,
+                Title = inventoryModel.Title,
+                Type = InventoryItem.GetItemType(inventoryModel.Type),
+                Vendor = vendor
+            };
 
             if (id != inventoryItem.Guid)
             {
@@ -85,12 +103,30 @@ namespace InventoryHelper.Controllers
 
         // POST: api/InventoryItems
         [HttpPost]
-        public async Task<IActionResult> PostInventoryItem([FromBody] InventoryItem inventoryItem)
+        public async Task<ActionResult> PostInventoryItem([FromBody] InventoryInModel inventoryModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            Vendor vendor = await _context.Vendors.SingleOrDefaultAsync(s => s.Name == inventoryModel.VendorName);
+
+            if(vendor == null)
+            {
+                return BadRequest();
+            }
+
+            InventoryItem inventoryItem = new InventoryItem
+            {
+                Guid = new Guid(inventoryModel.Guid),
+                SerialNo = inventoryModel.SerialNo,
+                Quantity = inventoryModel.Quantity,
+                QuantityAvailable = inventoryModel.QuantityAvailable,
+                Title = inventoryModel.Title,
+                Type = InventoryItem.GetItemType(inventoryModel.Type),
+                Vendor = vendor
+            };
 
             _context.Items.Add(inventoryItem);
             await _context.SaveChangesAsync();
@@ -100,14 +136,15 @@ namespace InventoryHelper.Controllers
 
         // DELETE: api/InventoryItems/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteInventoryItem([FromRoute] Guid id)
+        public async Task<ActionResult> DeleteInventoryItem([FromBody] string id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            Guid guid = new Guid(id);
+            var inventoryItem = await _context.Items.SingleOrDefaultAsync(m => m.Guid == guid);
 
-            var inventoryItem = await _context.Items.SingleOrDefaultAsync(m => m.Guid == id);
             if (inventoryItem == null)
             {
                 return NotFound();
